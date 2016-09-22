@@ -2,8 +2,6 @@
 var fs = require('fs');
 var appConfig = {};
 
-
-
 function Config(file) {
     appConfig = JSON.parse( fs.readFileSync(file) );
 }

@@ -9,8 +9,6 @@ config      = require('./configure-me');
 // Open up the configuration system
 cfg = new config('config.json');
 
-//port = process.env.PORT || 8080;
-
 app = express();
 
 hbs = exphbs.create({
