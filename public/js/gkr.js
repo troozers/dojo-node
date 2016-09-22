@@ -3,7 +3,7 @@
     var protocol, host, googleapi, googlekey, class_data;
     protocol  = window.location.protocol;
     host      = window.location.host;
-    googleapi = 'http://maps.googleapis.com/maps/api';
+    googleapi = 'https://maps.googleapis.com/maps/api';
     googlekey = 'AIzaSyAbNE0YwjOz0AU_USrIgSMYzl7DhZb185Q';
 
     // Grab the class data from a hidden input field
@@ -19,7 +19,7 @@
         if( street.attr('data-heading') != 'null' && street.attr('data-heading') != 0.00 )
             hdg = '&heading=' + street.attr('data-heading');
 
-        var url ='http://maps.google.com/maps?q=' + pos;
+        var url ='https://maps.google.com/maps?q=' + pos;
         //var img="<img src='" + googleapi + "/streetview?size=300x300&location="+pos+hdg+"&key=" + googlekey + "' class='img-polaroid' />";
 
         var img='<img src="' + googleapi + '/streetview?size=300x300&location=' + pos + hdg + '&key=' + googlekey + '" class="img-polaroid" />';
