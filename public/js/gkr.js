@@ -20,8 +20,6 @@
             hdg = '&heading=' + street.attr('data-heading');
 
         var url ='https://maps.google.com/maps?q=' + pos;
-        //var img="<img src='" + googleapi + "/streetview?size=300x300&location="+pos+hdg+"&key=" + googlekey + "' class='img-polaroid' />";
-
         var img='<img src="' + googleapi + '/streetview?size=300x300&location=' + pos + hdg + '&key=' + googlekey + '" class="img-polaroid" />';
 
         street.replaceWith('<a target="_blank" href="' + url + '">' + img + '</a>');
