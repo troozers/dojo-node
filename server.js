@@ -26,7 +26,7 @@ hbs = exphbs.create({
 app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
 
-app.use('/public', express.static(__dirname + '/public'));
+//app.use('/public', express.static(__dirname + '/public'));
 
 // Render the homepage
 app.get('/', home.index);
@@ -39,5 +39,5 @@ app.get('/my/timetable', timetable.index);
 app.use('/api/v1', apiVersion1);
 
 app.listen(port, function() {
-    console.log('Server listening on http://localhost:'+port);
+    console.log('Server listening on port: '+port);
 });

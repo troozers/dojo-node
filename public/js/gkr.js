@@ -1,8 +1,9 @@
 (function ($) {
     // Get some variables
-    var protocol, host, googleapi, googlekey, class_data;
+    var protocol, host, path, googleapi, googlekey, class_data;
     protocol  = window.location.protocol;
     host      = window.location.host;
+    path      = window.location.pathname;
     googleapi = 'https://maps.googleapis.com/maps/api';
     googlekey = 'AIzaSyAbNE0YwjOz0AU_USrIgSMYzl7DhZb185Q';
 
@@ -28,7 +29,8 @@
 
     // Action when a day button is clicked
     $('#pickday button').click(function() {
-        window.location.href = protocol+'//'+ host + '/' + $(this).attr('data-value');
+        //console.log('href = ' + protocol + '//' + host + path + '/' + $(this).attr('data-value'));
+        window.location.href = protocol+'//'+ host + path + '/' + $(this).attr('data-value');
         return false;
     });
 

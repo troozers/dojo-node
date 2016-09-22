@@ -27,4 +27,6 @@ module.exports = {
 
         return (dow.indexOf(str) > -1);
     }
+
+
 };
