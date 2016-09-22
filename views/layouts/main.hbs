@@ -7,13 +7,14 @@
     <meta name="author" content="troozers" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 
-    <title>Returned Data</title>
-    <link rel="shortcut icon" type="image/x-icon" href="{{myURL.Protocol}}://{{myURL.Host}}{{myURL.Path}}/public/img/gkr-favicon.ico" />
+    <title>GKR Region 33</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{cfg.url}}{{cfg.path}}/public/img/gkr-favicon.ico" />
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{myURL.Protocol}}://{{myURL.Host}}{{myURL.Path}}/public/css/stylesheet.css">
+    <link rel="stylesheet" href="{{cfg.url}}{{cfg.path}}/public/css/stylesheet.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <body>
+<input type="hidden" name="baseurl" id="baseurl" value="{{cfg.url}}{{cfg.path}}" />
 <div id="wrap">
     <div id="main" class="container clear-top">
         <h1>GKR Region 33</h1>
@@ -33,6 +34,6 @@
 <!-- Javascript to add functionality to the site -->
 <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbNE0YwjOz0AU_USrIgSMYzl7DhZb185Q&v=3.exp"></script>
-<script type="text/javascript" src="{{myURL.Protocol}}://{{myURL.Host}}{{myURL.Path}}/public/js/gkr.js"></script>
+<script type="text/javascript" src="{{cfg.url}}{{cfg.path}}/public/js/gkr.js"></script>
 </body>
 </html>

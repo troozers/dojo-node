@@ -1,0 +1,8 @@
+{
+  "url"       : "http://localhost:8080",
+  "path"      : "/",
+  "node_port" : 8080,
+  "database"  : "localhost",
+  "username"  : "",
+  "password"  : ""
+}

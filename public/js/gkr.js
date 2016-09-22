@@ -1,14 +1,12 @@
 (function ($) {
     // Get some variables
-    var protocol, host, path, googleapi, googlekey, class_data;
-    protocol  = window.location.protocol;
-    host      = window.location.host;
-    path      = window.location.pathname;
+    var googleapi, googlekey, class_data, baseurl;
     googleapi = 'https://maps.googleapis.com/maps/api';
     googlekey = 'AIzaSyAbNE0YwjOz0AU_USrIgSMYzl7DhZb185Q';
 
-    // Grab the class data from a hidden input field
+    // Grab some data from a hidden input fields
     class_data = JSON.parse( $('#class_data').val() );
+    baseurl    = $('#baseurl').val();
 
 
     // Download streetview image only when class details are shown
@@ -29,8 +27,7 @@
 
     // Action when a day button is clicked
     $('#pickday button').click(function() {
-        //console.log('href = ' + protocol + '//' + host + path + '/' + $(this).attr('data-value'));
-        window.location.href = protocol+'//'+ host + path + '/' + $(this).attr('data-value');
+        window.location.href = baseurl + '/' + $(this).attr('data-value');
         return false;
     });
 
@@ -44,10 +41,10 @@
     if (!navigator.geolocation) {
         $('#map_canvas').html('<p>Your browser does not support geo-location</p>');
     } else {
-        navigator.geolocation.getCurrentPosition(success, error);
+        navigator.geolocation.getCurrentPosition(gotPos, gotError, { maximumAge:60000, timeout:5000, enableHighAccuracy:true});
     }
 
-    function success(position) {
+    function gotPos(position) {
         var latitude, longitude;
         latitude  = position.coords.latitude;
         longitude = position.coords.longitude;
@@ -75,7 +72,7 @@
             if (status === 'OK') {
                 i=0;
                 $('.travel-info').each(function() {
-                    travel = data.rows[0].elements[i].distance.text;
+                    travel   = data.rows[0].elements[i].distance.text;
                     duration = data.rows[0].elements[i].duration.text;
 
                     $(this).html('Distance from you: ' + travel + ' (' + duration + ')');
@@ -108,13 +105,13 @@
         markerBounds.extend(myLatLng);
 
         // Custom marker
-        var gkrIcon = new google.maps.MarkerImage('/public/img/gkr-marker.png',
+        var gkrIcon = new google.maps.MarkerImage(baseurl + '/public/img/gkr-marker.png',
             new google.maps.Size(36,48),
             new google.maps.Point(0,0),
             new google.maps.Point(18,48)
         );
 
-        var gkrShadow = new google.maps.MarkerImage('/public/img/gkr-marker-shadow.png',
+        var gkrShadow = new google.maps.MarkerImage(baseurl + '/public/img/gkr-marker-shadow.png',
             new google.maps.Size(64,48),
             new google.maps.Point(0,0),
             new google.maps.Point(18,48)
@@ -162,8 +159,9 @@
         **/
     }
 
-    function error() {
-        $('#map_canvas').html('<p>Your browser does not support geo-location</p>');
+    function gotError(msg) {
+        console.log(msg);
+        $('#map_canvas').html('<p>Error: ' + msg + '</p>');
     }
 
 }) (jQuery);

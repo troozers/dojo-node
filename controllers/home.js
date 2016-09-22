@@ -1,8 +1,9 @@
-var request, location, moment, tools;
+var request, location, moment, tools, config;
 request   = require('request');
 moment    = require('moment-timezone');
 location  = require('../models/location');
 tools     = require('../tools');
+config    = require('../configure-me');
 
 
 module.exports = {
@@ -11,27 +12,6 @@ module.exports = {
         var myURL = [];
         var myPath;
         var day, epoch;
-
-        myPath = req.url;
-        if (myPath.slice(-1) === '/') { myPath = myPath.slice(0, -1); }
-
-        if (req.get('X-NginX-Proxy')) {
-            myURL = {
-                Proxied: req.get('X-NginX-Proxy'),
-                Protocol: req.get('X-Forwarded-Proto'),
-                Host: req.get('Host'),
-                Path: req.get('X-Location-Param')
-            };
-        } else {
-            myURL = {
-                Proxied: false,
-                Protocol: req.protocol,
-                Host: req.get('host'),
-                Path: ''
-            };
-        }
-
-        console.log( myURL );
 
         if (tools.validDay(req.params.day)) {
             day = tools.capitalise(req.params.day);
@@ -47,7 +27,7 @@ module.exports = {
             if (error) { throw error; }
 
             data = JSON.parse(body);
-            res.render('home', {data: data, day: day, myURL: myURL});
+            res.render('home', {data: data, day: day, cfg: cfg.all() });
         });
     }
 };
