@@ -26,7 +26,7 @@
 
 
     // Action when a day button is clicked
-    $('#pickday button').click(function() {
+    $('#pickday').find('button').click(function() {
         window.location.href = baseurl + '/' + $(this).attr('data-value');
         return false;
     });
@@ -38,16 +38,24 @@
 
 
     // Let's find our location
-    if (!navigator.geolocation) {
-        $('#map_canvas').html('<p>Your browser does not support geo-location</p>');
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(gotPos, gotError, {
+            maximumAge: 0,
+            timeout: 5000,
+            enableHighAccuracy: true
+        });
     } else {
-        navigator.geolocation.getCurrentPosition(gotPos, gotError, { maximumAge:60000, timeout:5000, enableHighAccuracy:true});
+        $('#gps-status').removeClass().addClass('fa fa-times');
+        $('#map_canvas').html('<p>Your browser does not support geo-location</p>');
     }
 
     function gotPos(position) {
         var latitude, longitude;
         latitude  = position.coords.latitude;
         longitude = position.coords.longitude;
+
+        console.log('LonLat: ' + longitude + ', ' + latitude);
+        $('#gps-status').removeClass().addClass('fa fa-map-marker');
 
         var myLatLng = new google.maps.LatLng(latitude, longitude);
 
@@ -65,12 +73,13 @@
             unitSystem: google.maps.UnitSystem.IMPERIAL
         }, displayTravelInfo);
 
+
         function displayTravelInfo(data, status) {
             var i, travel, duration;
 
-            // Iterate through results and display on page
             if (status === 'OK') {
                 i=0;
+                console.log('DistanceMatrix: ' + status);
                 $('.travel-info').each(function() {
                     travel   = data.rows[0].elements[i].distance.text;
                     duration = data.rows[0].elements[i].duration.text;
@@ -83,85 +92,12 @@
                 console.log('getDistanceMatrix Error: ' + status);
             }
         }
-
-        // Display the map
-        var mapOptions = {
-            zoom: 9,
-            center: myLatLng,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-
-        // Set marker for our position
-        var myPos = new google.maps.Marker({
-            position: myLatLng,
-            map: map,
-            title: 'You are here',
-            zIndex: 99
-        });
-
-        // Show some funky GKR icons on our map where the classes are running
-        var markerBounds = new google.maps.LatLngBounds();
-        markerBounds.extend(myLatLng);
-
-        // Custom marker
-        var gkrIcon = new google.maps.MarkerImage(baseurl + '/public/img/gkr-marker.png',
-            new google.maps.Size(36,48),
-            new google.maps.Point(0,0),
-            new google.maps.Point(18,48)
-        );
-
-        var gkrShadow = new google.maps.MarkerImage(baseurl + '/public/img/gkr-marker-shadow.png',
-            new google.maps.Size(64,48),
-            new google.maps.Point(0,0),
-            new google.maps.Point(18,48)
-        );
-
-        var gkrShape = {
-            coord: [23,1,24,2,26,3,27,4,28,5,29,6,30,7,31,8,32,9,32,10,33,11,33,12,34,13,35,14,35,15,35,16,35,17,35,18,35,19,35,20,35,21,35,22,35,23,34,24,33,25,33,26,32,27,32,28,31,29,30,30,29,31,28,32,26,33,25,34,22,35,22,36,22,37,21,38,20,39,20,40,20,41,19,42,19,43,18,44,18,45,18,46,17,46,17,45,17,44,16,43,16,42,15,41,15,40,15,39,14,38,14,37,14,36,13,35,10,34,9,33,7,32,6,31,5,30,4,29,3,28,3,27,2,26,2,25,1,24,1,23,1,22,0,21,0,20,0,19,0,18,0,17,0,16,0,15,1,14,1,13,2,12,2,11,3,10,3,9,4,8,5,7,6,6,7,5,8,4,9,3,11,2,12,1,23,1],
-            type: 'poly'
-        };
-        // Custom Marker
-
-
-        // Set marker(s) for each class running
-        for(var i = 0; i < class_data.length; i++) {
-            var thisClass = new google.maps.LatLng( class_data[i].address.loc.coordinates[1], class_data[i].address.loc.coordinates[0] );
-            var marker = new google.maps.Marker({
-                position: thisClass,
-                map: map,
-                zIndex: 1,
-                icon: gkrIcon,
-                shadow: gkrShadow,
-                shape: gkrShape,
-                title: class_data[i].name + ' (Click for more info)',
-                info: '[href="#timetable-id-' + class_data[i]._id + '"]'
-            });
-            markerBounds.extend(thisClass);
-
-             // Show class details when class marker is clicked
-             google.maps.event.addListener( marker, 'click', function() {
-                 $(this.info).click();
-             });
-         }
-         map.fitBounds( markerBounds );
-
-
-        /**
-        $.ajax({
-            url: "http://localhost/api/v1/classes/closest/" + longitude + "/" + latitude,
-            type: "GET",
-            crossDomain: true
-        }).then( function(data) {
-
-
-        });
-        **/
     }
+
 
     function gotError(msg) {
         console.log(msg);
-        $('#map_canvas').html('<p>Error: ' + msg + '</p>');
+        $('#gps-status').removeClass().addClass('fa fa-times');
     }
 
 }) (jQuery);
