@@ -1,9 +1,13 @@
-var express, mongoose, bodyParser, location, api, tools, dayOfWeek;
+var express, mongoose, bodyParser, location, api, tools, dayOfWeek, config, cfg;
 express    = require('express');
 mongoose   = require('mongoose');
 bodyParser = require('body-parser');
 location   = require('../models/location');
 tools      = require('../tools.js');
+config     = require('../configure-me');
+
+// Open configuration object
+cfg = new config('./config.json');
 
 // Define the day of the weeks and the sort order we want to view them in
 dayOfWeek = { 'Monday': 0, 'Tuesday': 1, 'Wednesday': 2, 'Thursday': 3, 'Friday': 4, 'Saturday': 5, 'Sunday': 6 };
@@ -11,7 +15,7 @@ dayOfWeek = { 'Monday': 0, 'Tuesday': 1, 'Wednesday': 2, 'Thursday': 3, 'Friday'
 api = express.Router();
 
 // Connect to the database
-mongoose.connect('mongodb://localhost/gkr');
+mongoose.connect(cfg.db());
 
 // Utilise bodyparser to access the URL parameters
 api.use(bodyParser.urlencoded({ extended: true }));
@@ -24,11 +28,6 @@ api.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Credentials', true);
 
     next();
-});
-
-api.get('/', function(req, res) {
-    // test route to make sure evenything is working
-    res.json({ message: 'Welcome to the pleasure dome!' });
 });
 
 

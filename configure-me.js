@@ -30,4 +30,18 @@ Config.prototype.all = function() {
     return appConfig;
 };
 
+Config.prototype.db = function() {
+    var dsn = 'mongodb://';
+
+    // add authentication details if defined
+    if (appConfig.dbuser !== '') {
+        dsn = dsn + appConfig.dbuser + ':' + appConfig.dbpass + '@';
+    }
+
+    // add host and database details
+    dsn = dsn + appConfig.dbhost + '/' + appConfig.dbname;
+
+    return dsn;
+};
+
 module.exports = Config;

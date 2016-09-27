@@ -1,4 +1,10 @@
-// models/locations.js
+/**
+ * ./models/locations.js
+ *
+ * @author       - andy stewart (andy@troozers.com)
+ * @description  - mongodb data schema for the 'locations' collection within the database
+ *
+ */
 var mongoose, Schema, locationSchema;
 mongoose = require('mongoose');
 Schema   = mongoose.Schema;

@@ -1,4 +1,4 @@
-var express, exphbs, hbs, apiVersion1, home, timetable, app, port, config;
+var express, exphbs, hbs, apiVersion1, home, timetable, app, port, config, cfg;
 express     = require('express');
 exphbs      = require('express-handlebars');
 apiVersion1 = require('./routes/api1.js');
