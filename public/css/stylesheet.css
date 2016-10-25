@@ -33,3 +33,29 @@ body {
     padding: 5px;
     height: 150px;
 }
+
+.product-grid:after {
+    display: inline-block;
+    width: 100%;
+}
+
+.product-grid .mix,
+.product-grid .gap {
+    display: inline-block;
+}
+
+.product-grid .mix {
+    display: none;
+}
+
+.product-grid .mix:after {
+    display: inline-block;
+}
+
+.product-grid .mix:before {
+    display: inline-block;
+}
+
+.panel { width: 250px; height: 250px; }
+
+.panel-body { white-space: normal; }

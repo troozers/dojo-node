@@ -1,12 +1,45 @@
 (function ($) {
     // Get some variables
-    var googleapi, googlekey, class_data, baseurl;
+    var googleapi, googlekey, class_data, baseurl, DayOfWeek, dayIndex, day;
     googleapi = 'https://maps.googleapis.com/maps/api';
     googlekey = 'AIzaSyAbNE0YwjOz0AU_USrIgSMYzl7DhZb185Q';
+    DayOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
     // Grab some data from a hidden input fields
     class_data = JSON.parse( $('#class_data').val() );
     baseurl    = $('#baseurl').val();
+    day        = $('h2').text();
+    dayIndex   = DayOfWeek.indexOf(day);
+
+
+    $('#product-grid').mixItUp({
+        load: {
+            filter: '.' + day
+        }
+    });
+
+    // Swipe Code
+    $('.container').swipe({
+        swipeLeft: function(event, direction, distance, duration, fingerCount) {
+            if( dayIndex < 6 ) {
+                dayIndex += 1;
+            } else {
+                dayIndex = 0;
+            }
+            $('h2').text(DayOfWeek[dayIndex]);
+            $('#product-grid').mixItUp('filter', '.' + DayOfWeek[dayIndex]);
+        },
+
+        swipeRight: function(event, direction, distance, duration, fingerCount) {
+            if( dayIndex > 0 ) {
+                dayIndex -= 1;
+            } else {
+                dayIndex = 6;
+            }
+            $('h2').text(DayOfWeek[dayIndex]);
+            $('#product-grid').mixItUp('filter', '.' + DayOfWeek[dayIndex]);
+        }
+    });
 
 
     // Download streetview image only when class details are shown
@@ -23,18 +56,6 @@
 
         street.replaceWith('<a target="_blank" href="' + url + '">' + img + '</a>');
     });
-
-
-    // Action when a day button is clicked
-    $('#pickday').find('button').click(function() {
-        window.location.href = baseurl + '/' + $(this).attr('data-value');
-        return false;
-    });
-
-
-    // Highlight the relevant day button
-    var day = $('h2').text();
-    $('#btn'+day).addClass('btn-success').removeClass('btn-primary');
 
 
     // Let's find our location

@@ -5,6 +5,8 @@ location  = require('../models/location');
 tools     = require('../tools');
 config    = require('../configure-me');
 
+// Open up the configuration system
+cfg = new config('config.json');
 
 module.exports = {
     index: function(req, res) {
@@ -22,7 +24,7 @@ module.exports = {
 
         request({
             method: 'GET',
-            uri: 'http://localhost:8080/api/v1/classes/day/'+day
+            uri: 'http://localhost:8080/api/v1/classes'
         }, function(error, response, body) {
             if (error) { throw error; }
 

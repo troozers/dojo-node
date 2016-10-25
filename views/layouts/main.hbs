@@ -9,10 +9,10 @@
 
     <title>GKR Region 33</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{cfg.url}}{{cfg.path}}/public/img/gkr-favicon.ico" />
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
     <link rel="stylesheet" href="{{cfg.url}}{{cfg.path}}/public/css/stylesheet.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 </head>
 <body>
 <input type="hidden" name="baseurl" id="baseurl" value="{{cfg.url}}{{cfg.path}}" />
@@ -20,7 +20,12 @@
     <div id="main" class="container clear-top">
         <h1>GKR Region 33</h1>
         <div class="row">
-            {{{body}}}
+            <div id="product-grid" class="product-grid">
+                {{{body}}}
+
+                <div class="gap"></div>
+                <div class="gap"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -36,7 +41,9 @@
 </div>
 
 <!-- Javascript to add functionality to the site -->
-<script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/jquery.mixitup/latest/jquery.mixitup.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.touchswipe/1.6.18/jquery.touchSwipe.min.js"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbNE0YwjOz0AU_USrIgSMYzl7DhZb185Q&v=3.exp"></script>
 <script type="text/javascript" src="{{cfg.url}}{{cfg.path}}/public/js/gkr.js"></script>
 </body>

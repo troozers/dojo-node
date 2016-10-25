@@ -3,7 +3,6 @@ express     = require('express');
 exphbs      = require('express-handlebars');
 apiVersion1 = require('./routes/api1.js');
 home        = require('./controllers/home');
-timetable   = require('./controllers/timetable');
 config      = require('./configure-me');
 
 // Open up the configuration system
@@ -32,10 +31,6 @@ app.use(cfg.path() + '/public', express.static(__dirname + '/public'));
 
 // Render the homepage
 app.get(cfg.path(), home.index);
-app.get(cfg.path() + '/:day', home.index);
-
-// Render the sales page
-app.get(cfg.path + '/my/timetable', timetable.index);
 
 // Routing for API
 app.use('/api/v1', apiVersion1);
