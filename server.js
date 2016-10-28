@@ -20,6 +20,10 @@ hbs = exphbs.create({
 
         geopos: function(context) {
             return context.loc.coordinates[1] + ',' + context.loc.coordinates[0];
+        },
+
+        classid: function(context) {
+            return context.name ;
         }
     }
 });
@@ -27,10 +31,10 @@ hbs = exphbs.create({
 app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
 
-app.use(cfg.path() + '/public', express.static(__dirname + '/public'));
+app.use('/public', express.static(__dirname + '/public'));
 
 // Render the homepage
-app.get(cfg.path(), home.index);
+app.get('/', home.index);
 
 // Routing for API
 app.use('/api/v1', apiVersion1);
