@@ -60,3 +60,5 @@ body {
 
 .panel { max-width: 300px; width: 300px; }
 .panel-body { white-space: normal; }
+
+.panel-title { cursor: pointer; }

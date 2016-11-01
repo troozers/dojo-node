@@ -42,6 +42,21 @@
     });
 
 
+    // Some code to change collapsible divs when on desktop
+    $(window).bind('resize load', function() {
+        var screenWidth = $(this).width();
+
+        if (screenWidth > 635) {
+            $('.collapse').collapse('show');
+            $('.panel-title').removeAttr('data-toggle');
+        } else {
+            $('.collapse').collapse('hide');
+            $('.panel-title').attr('data-toggle', 'collapse');
+        }
+    });
+
+
+
     // Download streetview image only when class details are shown
     $('.panel').on('show.bs.collapse', function(e) {
         var hdg    = '';

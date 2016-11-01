@@ -11,7 +11,8 @@ Schema   = mongoose.Schema;
 
 
 locationSchema = new Schema({
-    name: { type: String },
+    name: { type: String, required: true },
+    region: { type: Number, required: true },
     address: {
         building:   String,
         street:     String,

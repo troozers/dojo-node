@@ -46,7 +46,7 @@ api.route('/classes')
 // Get a list of all classes, sorted by day
     .get(function(req, res) {
         location.aggregate(
-            { $project: { "name": 1, "address": 1, "classes": 1 } },
+            { $project: { "name": 1, "region": 1, "address": 1, "classes": 1 } },
             { $unwind: "$classes" },
             { $sort: { "classes.day":1, "classes.start": 1, "name": 1} },
             function(err, classes) {

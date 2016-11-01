@@ -6,10 +6,8 @@
             <!-- {{name}} {{classes.start}} -->
             <div class="panel panel-primary mix {{classes.day}}">
                 <div class="panel-heading" role="tab" id="heading_{{_id}}_{{classes.id}}">
-                    <h4 class="panel-title">
-                        <a class="accordion-toggle" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_{{_id}}_{{classes.id}}" aria-expanded="false" aria-controls="collapse{{_id}}_{{classes.id}}">
-                            {{name}} ({{classes.start}})
-                        </a>
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" data-target="#collapse_{{_id}}_{{classes.id}}">
+                        {{name}} ({{classes.start}})
                     </h4>
                 </div>
                 <div id="collapse_{{_id}}_{{classes.id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_{{_id}}_{{classes.id}}">
