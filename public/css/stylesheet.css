@@ -27,6 +27,11 @@ body {
     background-color: #f5f5f5;
 }
 
+@media (max-width: 767px) {
+    .navbar{
+        display: none;
+    }
+}
 
 .timetable {
     border: 1px solid black;

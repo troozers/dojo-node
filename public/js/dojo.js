@@ -1,12 +1,16 @@
 (function ($) {
     // Get some variables
-    var googleapi, googlekey, class_data, baseurl, DayOfWeek, dayIndex, day;
+    var googleapi, googlekey, class_data, baseurl, DayOfWeek, dayIndex, day, screenWidth, lastWidth;
     googleapi = 'https://maps.googleapis.com/maps/api';
     googlekey = 'AIzaSyAbNE0YwjOz0AU_USrIgSMYzl7DhZb185Q';
     DayOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
+    lastWidth = 0;
+
     // Grab some data from a hidden input fields
     class_data = JSON.parse( $('#class_data').val() );
+
+    // TODO : Review whether baseurl is still required.  Remove from main.hbs as well if not.
     baseurl    = $('#baseurl').val();
     day        = $('h2').text();
     dayIndex   = DayOfWeek.indexOf(day);
@@ -20,39 +24,48 @@
 
     // Swipe Code
     $('#wrap').swipe({
-        swipeLeft: function(event, direction, distance, duration, fingerCount) {
-            if( dayIndex < 6 ) {
-                dayIndex += 1;
-            } else {
-                dayIndex = 0;
-            }
-            $('h2').text(DayOfWeek[dayIndex]);
-            $('#product-grid').mixItUp('filter', '.' + DayOfWeek[dayIndex]);
-        },
+        swipe: function(event, direction, distance, duration, fingerCount, fingerData) {
+            switch(direction) {
+                case 'left':
+                    // Scroll UP the weekdays Mon > Sun
+                    (dayIndex < 6) ? dayIndex +=1 : dayIndex = 0;
+                    break;
 
-        swipeRight: function(event, direction, distance, duration, fingerCount) {
-            if( dayIndex > 0 ) {
-                dayIndex -= 1;
-            } else {
-                dayIndex = 6;
+                case 'right':
+                    // Scroll DOWN the weekdays Sun > Mon
+                    (dayIndex > 0) ? dayIndex -=1 : dayIndex = 6;
+                    break;
             }
+
             $('h2').text(DayOfWeek[dayIndex]);
             $('#product-grid').mixItUp('filter', '.' + DayOfWeek[dayIndex]);
         }
     });
 
 
-    // Some code to change collapsible divs when on desktop
+    /**
+     * This section of code modifies the class listings based on screen size.
+     *
+     * Mobile  (width < 635px) : Show a list of classes in a collapsed accordion.
+     *
+     * Desktop (width > 635px) : Show an expanded set of classes and
+     *                           remove the accordion collapse feature
+     */
     $(window).bind('resize load', function() {
-        var screenWidth = $(this).width();
+        screenWidth = $(this).width();
 
-        if (screenWidth > 635) {
-            $('.collapse').collapse('show');
-            $('.panel-title').removeAttr('data-toggle');
-        } else {
-            $('.collapse').collapse('hide');
-            $('.panel-title').attr('data-toggle', 'collapse');
+        // this first 'if' removes an annoying feature where scrolling down a mobile
+        // view would cause a resize event and collapse the accordions.
+        if (screenWidth !== lastWidth) {
+            if (screenWidth > 635) {
+                $('.collapse').collapse('show');
+                $('.panel-title').removeAttr('data-toggle');
+            } else {
+                $('.collapse').collapse('hide');
+                $('.panel-title').attr('data-toggle', 'collapse');
+            }
         }
+        lastWidth = screenWidth;
     });
 
 

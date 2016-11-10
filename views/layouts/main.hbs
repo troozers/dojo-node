@@ -16,6 +16,18 @@
 </head>
 <body>
 <input type="hidden" name="baseurl" id="baseurl" value="{{cfg.url}}{{cfg.path}}" />
+
+<!-- Navbar -->
+<nav class="navbar navbar-default navbcar-static-top">
+    <div class="container">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Login</a></li>
+        </ul>
+    </div>
+</nav>
+<!-- /Navbar -->
+
+<!-- Class Listing -->
 <div id="wrap">
     <div id="main" class="container clear-top">
         <h1>Locations</h1>
@@ -29,8 +41,9 @@
         </div>
     </div>
 </div>
+<!-- /Class Listing -->
 
-
+<!-- Footer -->
 <div id="footer">
     <div class="container">
         <p class="text-muted credit">
@@ -39,12 +52,13 @@
         </p>
     </div>
 </div>
+<!-- /Footer -->
 
 <!-- Javascript to add functionality to the site -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/jquery.mixitup/latest/jquery.mixitup.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.touchswipe/1.6.18/jquery.touchSwipe.min.js"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbNE0YwjOz0AU_USrIgSMYzl7DhZb185Q&v=3.exp"></script>
-<script type="text/javascript" src="{{cfg.url}}{{cfg.path}}/public/js/gkr.js"></script>
+<script type="text/javascript" src="{{cfg.url}}{{cfg.path}}/public/js/dojo.js"></script>
 </body>
 </html>
