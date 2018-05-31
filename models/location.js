@@ -29,12 +29,6 @@ locationSchema = new Schema({
         start:      String,
         finish:     String,
         note:       String
-    }],
-    results: [{
-        id:         Number,
-        date:       Date,
-        students:   Number,
-        stock:      Number
     }]
 });
 locationSchema.index({ "address.loc": "2dsphere" });

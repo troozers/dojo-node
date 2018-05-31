@@ -15,7 +15,10 @@ dayOfWeek = { 'Monday': 0, 'Tuesday': 1, 'Wednesday': 2, 'Thursday': 3, 'Friday'
 api = express.Router();
 
 // Connect to the database
-mongoose.connect(cfg.db());
+mongoose.connect(cfg.db(), {useMongoClient: true,}, function(err) {
+    if (err) throw err;
+    console.log("Successfully connect to " + cfg.db());
+});
 
 // Utilise bodyparser to access the URL parameters
 api.use(bodyParser.urlencoded({ extended: true }));
@@ -34,10 +37,13 @@ api.use(function(req, res, next) {
 api.route('/locations')
 // Get a list of all locations
     .get(function(req, res) {
-        location.find({}, { name:1, address:1 }, {}, function(err, locations) {
+        location.find({}, function(err, locations) {
             if (err) { res.send(err); }
 
             res.json(locations);
+            console.log("finding locations");
+            console.log("Error: " + err);
+            console.log("Results: " + locations);
         });
     });
 
